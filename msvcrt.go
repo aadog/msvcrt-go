@@ -1,4 +1,4 @@
-package cpy3
+package msvcrt
 
 import "syscall"
 

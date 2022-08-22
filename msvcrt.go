@@ -1,7 +1,9 @@
 package msvcrt
 
-
-import "syscall"
+import (
+	"syscall"
+	"unsafe"
+)
 
 type Pointer = uintptr
 type SIZE_T = uintptr
@@ -41,4 +43,13 @@ func Wcslen(ws Pointer) SIZE_T {
 func Strlen(s Pointer) SIZE_T {
 	r, _, _ := strlen.Call(s)
 	return r
+}
+
+func MallocCString(s string) uintptr {
+	temp := []byte(s)
+	n := SIZE_T(len(temp) + 1)
+	ptr := Malloc(n)
+	Memset(ptr, 0, n)
+	Memcpy(ptr, uintptr(unsafe.Pointer(&temp[0])), SIZE_T(len(temp)))
+	return ptr
 }

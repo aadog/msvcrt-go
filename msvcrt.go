@@ -1,5 +1,6 @@
 package msvcrt
 
+
 import "syscall"
 
 type Pointer = uintptr
